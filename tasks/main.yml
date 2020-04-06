@@ -1,0 +1,14 @@
+---
+- name: Check if circleci-cli installed
+  shell: circleci version
+  register: CIRCLECICLI_INSTALLED
+  changed_when: false
+  ignore_errors: true
+  environment:
+    PATH: "/usr/local/bin:{{ ansible_env.PATH }}"
+
+- name: Install circleci-cli
+  shell: curl -fLSs https://circle.ci/cli | bash
+  environment:
+    PATH: "/usr/local/bin:{{ ansible_env.PATH }}"
+  when: CIRCLECICLI_INSTALLED is failed
