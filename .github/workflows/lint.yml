@@ -1,9 +1,9 @@
 ---
-name: Lint 
+name: Lint
 on: push
 
 jobs:
-  deploy:
+  check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
