@@ -9,20 +9,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Build CentOS7 image sudo installed
-        run: docker build tests/. -t centos7sudo
-
       - name: Docker run CentOS7 image sudo installed
-        run: docker run -d -t --name=mycontainer centos7sudo
+        run: docker run -d -t --name=mycontainer tomonorimatsumura/ansible-test:latest
 
       - name: Install Ansible galaxy roles
         run: ansible-galaxy install -r tests/roles/requirements.yml -p tests/roles
 
       - name: Execute ansible-playbook command
-        run: ansible-playbook -i 'mycontainer,' -c docker tests/test.yml
+        run: ansible-playbook -i 'mycontainer,' -c docker -u ansible tests/test.yml
 
       - name: Check idempotency
-        run: ansible-playbook -i 'mycontainer,' -c docker tests/test.yml
+        run: ansible-playbook -i 'mycontainer,' -c docker -u ansible tests/test.yml
 
       - name: Check if the command works
         run: |
