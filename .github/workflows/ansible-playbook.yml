@@ -1,5 +1,5 @@
 ---
-name: Build
+name: ansible-playbook
 on: push
 
 jobs:
@@ -10,16 +10,21 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Docker run CentOS7 image sudo installed
-        run: docker run -d -t --name=mycontainer tomonorimatsumura/ansible-test:latest
+        run: |
+          docker run -d -t --name=mycontainer \
+          tomonorimatsumura/ansible-test:latest
 
       - name: Install Ansible galaxy roles
-        run: ansible-galaxy install -r tests/roles/requirements.yml -p tests/roles
+        run: |
+          ansible-galaxy install -r tests/roles/requirements.yml -p tests/roles
 
       - name: Execute ansible-playbook command
-        run: ansible-playbook -i 'mycontainer,' -c docker -u ansible tests/test.yml
+        run: |
+          ansible-playbook -i 'mycontainer,' -c docker -u ansible tests/test.yml
 
       - name: Check idempotency
-        run: ansible-playbook -i 'mycontainer,' -c docker -u ansible tests/test.yml
+        run: |
+          ansible-playbook -i 'mycontainer,' -c docker -u ansible tests/test.yml
 
       - name: Check if the command works
         run: |
@@ -29,4 +34,5 @@ jobs:
         run: ansible --version
 
       - name: Show OS information
-        run: docker exec --tty mycontainer env TERM=xterm cat /etc/redhat-release
+        run: |
+          docker exec --tty mycontainer env TERM=xterm cat /etc/redhat-release

@@ -1,5 +1,5 @@
 ---
-name: Trailing whitespace
+name: trailing whitespace
 on: push
 
 jobs:

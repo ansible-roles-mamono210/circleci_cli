@@ -1,5 +1,5 @@
 ---
-name: Lint
+name: ansible-lint
 on: push
 
 jobs:
