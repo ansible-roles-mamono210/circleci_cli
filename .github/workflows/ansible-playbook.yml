@@ -6,6 +6,10 @@ jobs:
   execute:
     runs-on: ubuntu-latest
     steps:
+      - name: Upgrade Ansible
+        run: |
+          pip install --upgrade ansible==2.9.9
+
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -21,10 +25,14 @@ jobs:
       - name: Execute ansible-playbook command
         run: |
           ansible-playbook -i 'mycontainer,' -c docker -u ansible tests/test.yml
+        env:
+          ANSIBLE_FORCE_COLOR: '1'
 
       - name: Check idempotency
         run: |
           ansible-playbook -i 'mycontainer,' -c docker -u ansible tests/test.yml
+        env:
+          ANSIBLE_FORCE_COLOR: '1'
 
       - name: Check if the command works
         run: |
