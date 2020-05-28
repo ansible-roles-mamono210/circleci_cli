@@ -1,9 +1,9 @@
 ---
 name: ansible-lint
-on: push
+on: [deployment, push]
 
 jobs:
-  check:
+  ansible-lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

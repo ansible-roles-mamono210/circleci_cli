@@ -1,9 +1,9 @@
 ---
 name: trailing whitespace
-on: push
+on: [deployment, push]
 
 jobs:
-  execute:
+  trailing-whitespace:
     name: Find Trailing Whitespace
     runs-on: ubuntu-latest
     steps:

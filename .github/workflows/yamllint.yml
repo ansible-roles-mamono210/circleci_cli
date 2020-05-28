@@ -1,6 +1,6 @@
 ---
 name: yamllint
-on: push
+on: [deployment, push]
 
 jobs:
   lintAllTheThings:
