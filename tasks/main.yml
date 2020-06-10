@@ -1,5 +1,5 @@
 ---
-- name: Check if circleci-cli installed
+- name: Check whether circleci-cli is installed
   shell: circleci version
   register: CIRCLECICLI_INSTALLED
   changed_when: false

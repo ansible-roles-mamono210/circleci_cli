@@ -1,3 +1,0 @@
----
-- src: https://github.com/ansible-roles-matsumura/circleci-cli.git
-  name: matsumura.circleci-cli
