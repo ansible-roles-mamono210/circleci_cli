@@ -16,6 +16,7 @@ jobs:
             tasks/main.yml
             molecule/default/converge.yml
             molecule/default/verify.yml
+          args: "-x 106"
 
   molecule:
     runs-on: ubuntu-latest
