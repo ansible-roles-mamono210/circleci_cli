@@ -4,15 +4,26 @@
 
   tasks:
     - name: Install which
+      become: true
       package:
         name: which
 
-    - name: Check whether exa installed
+    - name: Check whether CircleCI CLI is installed
       command: which circleci
       environment:
         TERM: xterm
       register: CIRCLECICLI_INSTALLED
       changed_when: false
 
-    - debug:
+    - name: Check OS version
+      command: cat /etc/redhat-release
+      register: OS_VERSION
+      changed_when: false
+
+    - name: Make sure CircleCI CLI is installed
+      debug:
         var: CIRCLECICLI_INSTALLED
+
+    - name: Show OS version
+      debug:
+        var: OS_VERSION
