@@ -1,7 +1,0 @@
----
-roles:
-  - name: circleci-cli
-    src: https://github.com/ansible-roles-matsumura/circleci-cli.git
-
-collections:
-  - name: community.general
