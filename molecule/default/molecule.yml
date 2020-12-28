@@ -7,6 +7,9 @@ platforms:
     pre_build_image: True
 provisioner:
   name: ansible
+  config_options:
+    defaults:
+      callback_whitelist: ansible.posix.profile_tasks
 verifier:
   name: ansible
 scenario:
