@@ -5,25 +5,25 @@
   tasks:
     - name: Install which
       become: true
-      package:
+      ansible.builtin.package:
         name: which
 
     - name: Check whether CircleCI CLI is installed
-      command: which circleci
+      ansible.builtin.command: which circleci
       environment:
         TERM: xterm
       register: CIRCLECICLI_INSTALLED
       changed_when: false
 
     - name: Check OS version
-      command: cat /etc/redhat-release
+      ansible.builtin.command: cat /etc/redhat-release
       register: OS_VERSION
       changed_when: false
 
     - name: Make sure CircleCI CLI is installed
-      debug:
+      ansible.builtin.debug:
         var: CIRCLECICLI_INSTALLED
 
     - name: Show OS version
-      debug:
+      ansible.builtin.debug:
         var: OS_VERSION
