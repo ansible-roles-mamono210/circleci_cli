@@ -5,4 +5,4 @@
   vars:
     ansible_user: ansible
   roles:
-    - circleci-cli
+    - circleci_cli
