@@ -12,18 +12,18 @@
       ansible.builtin.command: which circleci
       environment:
         TERM: xterm
-      register: CIRCLECICLI_INSTALLED
+      register: circlecicli_installed
       changed_when: false
 
     - name: Check OS version
       ansible.builtin.command: cat /etc/redhat-release
-      register: OS_VERSION
+      register: os_version
       changed_when: false
 
     - name: Make sure CircleCI CLI is installed
       ansible.builtin.debug:
-        var: CIRCLECICLI_INSTALLED
+        var: circlecicli_installed
 
     - name: Show OS version
       ansible.builtin.debug:
-        var: OS_VERSION
+        var: os_version
