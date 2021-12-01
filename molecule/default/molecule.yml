@@ -3,7 +3,7 @@ driver:
   name: docker
 platforms:
   - name: instance
-    image: ghcr.io/docker-hub-tm/ansible-test/${MOLECULE_DISTRO:-centos7}:latest
+    image: ${MOLECULE_IMAGE}
     pre_build_image: True
 provisioner:
   name: ansible
