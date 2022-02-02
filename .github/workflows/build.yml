@@ -11,10 +11,10 @@ jobs:
     with:
       molecule-image: ghcr.io/docker-hub-tm/ansible-test/centos7:latest
 
-  molecule-centos8:
+  molecule-centos-stream8:
     uses: github-actions-reusable-workflows/molecule-docker/.github/workflows/workflows.yml@main
     with:
-      molecule-image: ghcr.io/docker-hub-tm/ansible-test/centos8:latest
+      molecule-image: ghcr.io/docker-hub-tm/ansible-test/centos-stream8:latest
 
   trailing-whitespace:
     name: Find Trailing Whitespace
