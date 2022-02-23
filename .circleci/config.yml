@@ -1,0 +1,62 @@
+---
+jobs:
+  molecule:
+    machine:
+      image: ubuntu-2004:202111-02
+    resource_class: medium
+    parameters:
+      checkout-path:
+        type: string
+      molecule-executor-image:
+        type: string
+      molecule-test-image:
+        type: string
+    steps:
+      - checkout:
+          path: << parameters.checkout-path >>
+      - run:
+          name: Test with Molecule
+          command: |
+            sudo chmod 666 /var/run/docker.sock
+
+            cd << parameters.checkout-path >>
+
+            docker run --rm -it \
+            -e MOLECULE_IMAGE=<< parameters.molecule-test-image >> \
+            -v "$(pwd)":/tmp/$(basename "${PWD}"):ro \
+            -v /usr/bin/docker:/usr/bin/docker \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            -w /tmp/$(basename "${PWD}") \
+            << parameters.molecule-executor-image >> \
+            molecule test
+      - run:
+          name: Show Ansible version
+          command: |
+            docker run --rm -it \
+            << parameters.molecule-executor-image >> \
+            pip list | grep ansible \
+            | GREP_COLORS='mt=01;34' egrep --color=always '[[:digit:]]' \
+            | GREP_COLORS='mt=01;34' egrep --color=always '\.' \
+            | GREP_COLORS='mt=01;33' egrep --color=always 'ansible.* '
+      - run:
+          name: Show Molecule version
+          command: |
+            docker run --rm -it \
+            << parameters.molecule-executor-image >> \
+            molecule --version
+
+version: 2.1
+workflows:
+  version: 2
+  build:
+    jobs:
+      - molecule:
+          matrix:
+            parameters:
+              checkout-path:
+                - 'circleci_cli'
+              molecule-executor-image:
+                - 'ghcr.io/docker-hub-tm/circleci-executors_molecule/molecule:docker'
+              molecule-test-image:
+                - 'ghcr.io/docker-hub-tm/ansible-test/centos7:latest'
+                - 'ghcr.io/docker-hub-tm/ansible-test/centos-stream8:latest'
