@@ -3,9 +3,6 @@ name: build
 on: [deployment, push]
 
 jobs:
-  ansible-lint:
-    uses: github-actions-reusable-workflows/ansible-lint/.github/workflows/workflows.yml@main
-
   trailing-whitespace:
     name: Find Trailing Whitespace
     runs-on: ubuntu-latest

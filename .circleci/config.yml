@@ -1,5 +1,29 @@
 ---
 jobs:
+  ansible-lint:
+    docker:
+      - image: ghcr.io/docker-hub-tm/circleci-executors/ansible-lint:latest
+    steps:
+      - checkout
+      - run:
+          name: Install galaxy roles
+          command: |
+            if [ -f 'roles/requirements.yml' ]; then
+              ansible-galaxy install -r roles/requirements.yml
+            else
+              ansible-galaxy install git+${CIRCLE_REPOSITORY_URL},${CIRCLE_SHA1}
+            fi
+      - run:
+          name: Execulte Ansible-lint
+          command: ansible-lint
+      - run:
+          name: Show Ansible-lint version
+          command: |
+            pip list | grep ansible \
+            | GREP_COLORS='mt=01;34' egrep --color=always '[[:digit:]]' \
+            | GREP_COLORS='mt=01;34' egrep --color=always '\.' \
+            | GREP_COLORS='mt=01;33' egrep --color=always 'ansible.* '
+            ansible-lint --version
   molecule:
     machine:
       image: ubuntu-2004:202111-02
@@ -50,6 +74,7 @@ workflows:
   version: 2
   build:
     jobs:
+      - ansible-lint
       - molecule:
           matrix:
             parameters:
