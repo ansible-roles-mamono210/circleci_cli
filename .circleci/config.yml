@@ -68,13 +68,44 @@ jobs:
             docker run --rm -it \
             << parameters.molecule-executor-image >> \
             molecule --version
+  yamllint:
+    docker:
+      - image: ghcr.io/docker-hub-tm/circleci-executors/yamllint:latest
+    resource_class: small
+    steps:
+      - checkout
+      - run:
+          name: Execute yamllint
+          command: yamllint *
+      - run:
+          name: Show yamllint version
+          command: |
+            yamllint --version \
+            | GREP_COLORS='mt=01;34' egrep --color=always '[[:digit:]]' \
+            | GREP_COLORS='mt=01;34' egrep --color=always '\.' \
+            | GREP_COLORS='mt=01;33' egrep --color=always 'yamllint.* '
+  trailing-whitespace:
+    docker:
+      - image: ghcr.io/docker-hub-tm/circleci-executors/trailing-whitespace:latest
+    resource_class: small
+    steps:
+      - checkout
+      - run:
+          name: Execute trailing-whitespace
+          command: trailing-whitespace
 
 version: 2.1
 workflows:
   version: 2
   build:
     jobs:
-      - ansible-lint
+      - trailing-whitespace
+      - yamllint:
+          requires:
+            - trailing-whitespace
+      - ansible-lint:
+          requires:
+            - yamllint
       - molecule:
           matrix:
             parameters:
@@ -85,3 +116,5 @@ workflows:
               molecule-test-image:
                 - 'ghcr.io/docker-hub-tm/ansible-test/centos7:latest'
                 - 'ghcr.io/docker-hub-tm/ansible-test/centos-stream8:latest'
+          requires:
+            - ansible-lint
