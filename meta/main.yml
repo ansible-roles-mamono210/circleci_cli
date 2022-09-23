@@ -6,7 +6,7 @@ galaxy_info:
   description: circleci-cli installation for Linux.
   galaxy_tags: []
   license: "license (BSD, MIT)"
-  min_ansible_version: 4.5
+  min_ansible_version: 6.0.0
   role_name: circleci_cli
   platforms:
     - name: EL
