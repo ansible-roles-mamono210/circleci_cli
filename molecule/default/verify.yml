@@ -3,15 +3,8 @@
   hosts: all
 
   tasks:
-    - name: Install which
-      become: true
-      ansible.builtin.package:
-        name: which
-
     - name: Check whether CircleCI CLI is installed
-      ansible.builtin.command: which circleci
-      environment:
-        TERM: xterm
+      ansible.builtin.command: circleci version
       register: circlecicli_installed
       changed_when: false
 
