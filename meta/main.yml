@@ -2,7 +2,7 @@
 dependencies: []
 galaxy_info:
   author: mamono210
-  company:
+  company: no name
   description: circleci-cli installation for Linux.
   galaxy_tags: []
   license: "license (BSD, MIT)"
