@@ -1,14 +1,25 @@
 ---
 - name: Check whether circleci-cli is installed
-  ansible.builtin.shell: circleci version
+  ansible.builtin.command: circleci version
   register: circlecicli_installed
   changed_when: false
   ignore_errors: true
   environment:
     PATH: "/usr/local/bin:{{ ansible_env.PATH }}"
 
+- name: Retrieve circleci-cli installer
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/master/install.sh
+    dest: /tmp
+    mode: 0755
+    owner: root
+    group: root
+  when: circlecicli_installed is failed
+
 - name: Install circleci-cli
-  ansible.builtin.shell: curl -fLSs https://circle.ci/cli | bash
-  environment:
-    PATH: "/usr/local/bin:{{ ansible_env.PATH }}"
+  ansible.builtin.command: bash install.sh
+  changed_when: false
+  failed_when: false
+  args:
+    chdir: /tmp
   when: circlecicli_installed is failed

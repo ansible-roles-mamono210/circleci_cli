@@ -1,6 +1,2 @@
 ---
 parseable: true
-warn_list:
-  - command-instead-of-shell
-  - command-instead-of-module
-  - risky-shell-pipe
