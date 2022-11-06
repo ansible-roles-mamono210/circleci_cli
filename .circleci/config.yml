@@ -2,7 +2,7 @@
 jobs:
   ansible-lint:
     docker:
-      - image: ghcr.io/docker-hub-tm/circleci-executors/ansible-lint:latest
+      - image: ghcr.io/docker-images-mamono210/circleci-executors/ansible-lint:latest
     steps:
       - checkout
       - run:
@@ -70,7 +70,7 @@ jobs:
             molecule --version
   yamllint:
     docker:
-      - image: ghcr.io/docker-hub-tm/circleci-executors/yamllint:latest
+      - image: ghcr.io/docker-images-mamono210/circleci-executors/yamllint:latest
     resource_class: small
     steps:
       - checkout
@@ -86,7 +86,7 @@ jobs:
             | GREP_COLORS='mt=01;33' egrep --color=always 'yamllint.* '
   trailing-whitespace:
     docker:
-      - image: ghcr.io/docker-hub-tm/circleci-executors/trailing-whitespace:latest
+      - image: ghcr.io/docker-images-mamono210/circleci-executors/trailing-whitespace:latest
     resource_class: small
     steps:
       - checkout
@@ -112,9 +112,9 @@ workflows:
               checkout-path:
                 - 'circleci_cli'
               molecule-executor-image:
-                - 'ghcr.io/docker-hub-tm/circleci-executors_molecule/molecule:docker'
+                - 'ghcr.io/docker-images-mamono210/circleci-executors_molecule/molecule:docker'
               molecule-test-image:
-                - 'ghcr.io/docker-hub-tm/ansible-test/centos7:latest'
-                - 'ghcr.io/docker-hub-tm/ansible-test/centos-stream8:latest'
+                - 'ghcr.io/docker-images-mamono210/ansible-test/centos7:latest'
+                - 'ghcr.io/docker-images-mamono210/ansible-test/centos-stream8:latest'
           requires:
             - ansible-lint
