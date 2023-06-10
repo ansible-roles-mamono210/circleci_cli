@@ -90,7 +90,7 @@ workflows:
               molecule-executor-image:
                 - 'ghcr.io/docker-images-mamono210/circleci-executors_molecule/molecule:docker'
               molecule-test-image:
-                - 'ghcr.io/docker-images-mamono210/ansible-test/centos7:latest'
                 - 'ghcr.io/docker-images-mamono210/ansible-test/centos-stream8:latest'
+                - 'ghcr.io/docker-images-mamono210/ansible-test/centos-stream9:latest'
           requires:
             - ansible-lint
