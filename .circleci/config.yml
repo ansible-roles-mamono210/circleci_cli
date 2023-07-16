@@ -88,7 +88,7 @@ workflows:
               checkout-path:
                 - 'circleci_cli'
               molecule-executor-image:
-                - 'ghcr.io/docker-images-mamono210/circleci-executors_molecule/molecule:docker'
+                - 'ghcr.io/docker-images-mamono210/circleci-executors/molecule-docker:latest'
               molecule-test-image:
                 - 'ghcr.io/docker-images-mamono210/ansible-test/centos-stream8:latest'
                 - 'ghcr.io/docker-images-mamono210/ansible-test/centos-stream9:latest'
