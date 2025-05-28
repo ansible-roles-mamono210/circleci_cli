@@ -3,7 +3,7 @@
 Role Description
 =========
 
-Installs [circleci-cli](https://github.com/CircleCI-Public/circleci-cli) for CentOS7/Stream8.
+Installs [circleci-cli](https://github.com/CircleCI-Public/circleci-cli) for CentOS Stream 9.
 
 Requirements
 ------------
